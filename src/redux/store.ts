@@ -1,17 +1,18 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import citiesReducer from "./reducer";
+import citiesSlice from "./CitiesSlice";
+
+
 
 const rootReducer = combineReducers({
-	citiesReducer
+	citiesSlice
 })
 
-export const setupStore = () => {
-	return configureStore({
-		reducer: rootReducer
-	})
-}
+
+export const store = configureStore({
+	reducer: rootReducer
+})
 
 
 export type RootState = ReturnType<typeof rootReducer>
-export type AppStore = ReturnType<typeof setupStore>
+export type AppStore = typeof store
 export type AppDispatch = AppStore['dispatch']
