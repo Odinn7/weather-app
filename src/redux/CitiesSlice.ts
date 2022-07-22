@@ -1,13 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ICities } from "./ICities";
+import { ICities, IWeather } from "./ICities";
 
 
 interface CityState {
-	citiesArray: ICities[]
+	citiesArray: ICities[],
+	citiesWeather: IWeather[]
 }
 
 const initialState: CityState = {
-	citiesArray: []
+	citiesArray: [],
+	citiesWeather: []
 }
 
 export const citiesSlice = createSlice({
@@ -17,8 +19,16 @@ export const citiesSlice = createSlice({
 		newCityFetching(state, action) {
 			state.citiesArray.push(action.payload)
 		},
+		getFiveDaysWeather(state, action) {
+			state.citiesWeather.push(action.payload)
+		},
+		deleteMoreInfo (state) {
+			state.citiesWeather.length = 0
+		},
 		deleteCity(state, action) {
-			state.citiesArray.filter(action.payload)
+			state.citiesArray = state.citiesArray.filter(
+				(city: any) => city.id !== action.payload.id
+			)
 		}
 	},
 })

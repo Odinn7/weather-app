@@ -1,6 +1,8 @@
 import React from 'react';
 import { Box, Button, Modal, TextField, Typography } from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
+import { useAppDispatch, useAppSelector } from "../redux/hooks/hooks";
+import { citiesSlice } from "../redux/CitiesSlice";
 
 
 const style = {
@@ -18,7 +20,10 @@ const style = {
 	p: 4,
 };
 
-export const MoreInfo = ({open, handleClose, city}: any) => {
+export const MoreInfo = ({open, handleClose, city, weather}: any) => {
+	const dispatch = useAppDispatch()
+	console.log(weather, "weat")
+	
 	return (
 		<Modal
 			open={open}
@@ -49,7 +54,7 @@ export const MoreInfo = ({open, handleClose, city}: any) => {
 					>
 						More Information
 					</Typography>
-					<Typography sx={{fontSize: 25, fontFamily: "Montserrat"}}>
+					<Typography sx={{fontSize: 15, fontFamily: "Montserrat"}}>
 						<div>Country: {city.sys.country}</div>
 						<div> City: {city.name}</div>
 						<div>Weather: {city.weather.map((item: any) => item.main)}</div>
@@ -58,6 +63,41 @@ export const MoreInfo = ({open, handleClose, city}: any) => {
 						<div>Sunrise: {new Date(city.sys.sunrise * 1000).toLocaleString()}</div>
 						<div>Sunset: {new Date(city.sys.sunset * 1000).toLocaleString()}</div>
 						<div>Wind: {city.wind.speed} m/s</div>
+						<Box>
+							{
+								<Box sx={{display: 'flex', flexDirection: "column"}}>
+									Temperature per day:
+									<div style={{display: "flex"}}>
+										{
+											weather.map(
+												(item: any) => item.list.slice(0, 7).map(
+													(ili: any) => <div style={
+														{
+															marginRight: "5px",
+															border: "1px solid black",
+															fontSize: "10px",
+															paddingBottom: "5px",
+															paddingTop: "5px",
+															width: "15vw",
+															height: "4vh",
+															display: 'flex',
+															flexDirection: "column",
+															justifyContent: "space-between",
+														}
+													}>
+														<div style={{display: "flex", justifyContent: "center"}}>
+															{(ili.main.temp)}°C
+														</div>
+														<div style={{display: "flex", justifyContent: "center"}}>
+															{new Date(ili.dt * 1000).toLocaleTimeString('ru-RU')}
+															{(ili.dt).getHours}
+														</div>
+													</div>)
+											)}
+									</div>
+								</Box>
+							}
+						</Box>
 					</Typography>
 				</Box>
 			</Box>

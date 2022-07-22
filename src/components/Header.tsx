@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import { Button } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../redux/hooks/hooks";
-import { fetchingCities } from "../redux/fetchingCtites";
+import { fetchingCities, fetchingForSixDays } from "../redux/asyncFunctions";
 
 
 const Search = styled('div')(({theme}) => (
@@ -47,7 +47,6 @@ const StyledInputBase = styled(InputBase)(({theme}) => (
 export const Header = () => {
 	const [location, setLocation] = useState('')
 	const {citiesArray: city} = useAppSelector(state => state.citiesSlice)
-	
 	const dispatch = useAppDispatch()
 	
 	//	в локал сторедж не записывается по клику с первого раза, необходим второй клик
@@ -56,12 +55,19 @@ export const Header = () => {
 		dispatch(fetchingCities(location))
 		localStorage.setItem("cities", JSON.stringify(city))
 		setLocation('')
-		// тут же закидывать в локал сторедж после запроса (запрос лучше по клику)
 	}
+	
 	const onChangeInputValueHandler = useCallback((e: any) => {
 		setLocation(e.target.value)
 	}, [])
 	
+	const handleKeyDown = (event: any) => {
+		if (event.key === "Enter") {
+			dispatch(fetchingCities(location))
+			localStorage.setItem("cities", JSON.stringify(city))
+			setLocation('')
+		}
+	}
 	
 	return (
 		<Box sx={{flexGrow: 1}}>
@@ -86,6 +92,7 @@ export const Header = () => {
 							inputProps={{'aria-label': 'search'}}
 							value={location}
 							onChange={onChangeInputValueHandler}
+							onKeyDown={handleKeyDown}
 						/>
 					</Search>
 					<Button onClick={onClickAddCityHandler} variant="contained">
