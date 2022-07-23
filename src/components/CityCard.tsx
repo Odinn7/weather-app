@@ -10,7 +10,8 @@ import { citiesSlice } from "../redux/CitiesSlice";
 export const CityCard = ({city}: any) => {
 	const [open, setOpen] = useState(false);
 	const dispatch = useAppDispatch();
-	
+
+	console.log(city.id, "id id id id idid i")
 	
 	const {citiesWeather: weather} = useAppSelector(state => state.citiesSlice)
 	console.log(weather, "cities Weather")
@@ -27,8 +28,8 @@ export const CityCard = ({city}: any) => {
 		setOpen(false);
 	}
 	
-	const onCloseHandleClick = () => {
-		dispatch(citiesSlice.actions.deleteCity)
+	const onCloseHandleClick = (id :number) => {
+		dispatch(citiesSlice.actions.deleteCity(id))
 		localStorage.removeItem("cities")
 	}
 	
@@ -58,7 +59,7 @@ export const CityCard = ({city}: any) => {
 				<CancelIcon
 					color="error"
 					sx={{width: "25px", height: "25px", cursor: "pointer"}}
-					onClick={onCloseHandleClick}
+					onClick={() =>onCloseHandleClick(city.id)}
 				/>
 			</div>
 			<ButtonGroup sx={{display: "flex", justifyContent: "space-evenly"}}>

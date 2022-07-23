@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ICities, IWeather } from "./ICities";
 
 
@@ -25,9 +25,9 @@ export const citiesSlice = createSlice({
 		deleteMoreInfo (state) {
 			state.citiesWeather.length = 0
 		},
-		deleteCity(state, action) {
+		deleteCity(state, action: PayloadAction<number>) {
 			state.citiesArray = state.citiesArray.filter(
-				(city: any) => city.id !== action.payload.id
+				(city: any) => city.id !== action.payload
 			)
 		}
 	},
