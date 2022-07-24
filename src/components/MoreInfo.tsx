@@ -4,6 +4,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { useAppDispatch, useAppSelector } from "../redux/hooks/hooks";
 import { citiesSlice } from "../redux/CitiesSlice";
 import { ICities, ICitiesWeather, IWeather, IWeatherList } from "../redux/ICities";
+import { boxStyle, typographyStyle } from "../Styles";
 
 
 interface MoreInfoStateProps {
@@ -12,22 +13,6 @@ interface MoreInfoStateProps {
     city: ICities,
     weather: IWeather[]
 }
-
-const style = {
-    display: "flex",
-    justifyContent: "space-between",
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 600,
-    height: 500,
-    backgroundColor: 'background.paper',
-    border: '2px solid #0C4F96',
-    boxShadow: "0 5px 20px 3px #0C4F96",
-    p: 4,
-};
-
 
 export const MoreInfo = ({open, handleClose, city, weather}: MoreInfoStateProps) => {
     const dispatch = useAppDispatch()
@@ -39,7 +24,7 @@ export const MoreInfo = ({open, handleClose, city, weather}: MoreInfoStateProps)
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
-            <Box sx={ style }>
+            <Box sx={ boxStyle }>
                 <div style={ {
                     display: "flex",
                     position: "absolute",
@@ -63,23 +48,28 @@ export const MoreInfo = ({open, handleClose, city, weather}: MoreInfoStateProps)
                         More Information
                     </Typography>
                     <Typography sx={ {fontSize: 15, fontFamily: "Montserrat"} }>
-                        <div>Country: { city.sys.country }</div>
-                        <div> City: { city.name }</div>
-                        <div>Weather: { city.weather.map((item: ICitiesWeather) => item.main) }</div>
-                        <div>Temperature: { Math.floor(city.main.temp) }°C</div>
-                        <div>Feels like: { city.main.feels_like }°C</div>
-                        <div>Sunrise: { new Date(city.sys.sunrise * 1000).toLocaleString() }</div>
-                        <div>Sunset: { new Date(city.sys.sunset * 1000).toLocaleString() }</div>
-                        <div>Wind: { city.wind.speed } m/s</div>
+                        <Typography sx={ typographyStyle }>Country: { city.sys.country }</Typography>
+                        <Typography sx={ typographyStyle }> City: { city.name }</Typography>
+                        <Typography
+                            sx={ typographyStyle }>Weather: { city.weather.map((item: ICitiesWeather) => item.main) }</Typography>
+                        <Typography sx={ typographyStyle }>Temperature: { Math.floor(city.main.temp) }°C</Typography>
+                        <Typography sx={ typographyStyle }>Feels like: { city.main.feels_like }°C</Typography>
+                        <Typography
+                            sx={ typographyStyle }>Sunrise: { new Date(city.sys.sunrise * 1000).toLocaleString() }</Typography>
+                        <Typography
+                            sx={ typographyStyle }>Sunset: { new Date(city.sys.sunset * 1000).toLocaleString() }</Typography>
+                        <Typography sx={ typographyStyle }>Wind: { city.wind.speed } m/s</Typography>
                         <Box>
                             {
                                 <Box sx={ {display: 'flex', flexDirection: "column"} }>
-                                    Temperature per day:
-                                    <div style={ {display: "flex"} }>
+                                    <Typography sx={ typographyStyle }>
+                                        Temperature per day:
+                                    </Typography>
+                                    <Box style={ {display: "flex"} }>
                                         {
                                             weather.map(
-                                                (item: IWeather) => item.list.slice(0, 7).map(
-                                                    (ili: IWeatherList) => <div style={
+                                                (weatherItem: IWeather) => weatherItem.list.slice(0, 7).map(
+                                                    (ili: IWeatherList) => <Typography style={
                                                         {
                                                             marginRight: "5px",
                                                             border: "1px solid black",
@@ -93,18 +83,18 @@ export const MoreInfo = ({open, handleClose, city, weather}: MoreInfoStateProps)
                                                             justifyContent: "space-between",
                                                         }
                                                     }>
-                                                        <div style={ {display: "flex", justifyContent: "center"} }>
+                                                        <Typography sx={typographyStyle} style={ {display: "flex", justifyContent: "center"} }>
                                                             { (ili.main.temp) }°C
-                                                        </div>
-                                                        <div style={ {display: "flex", justifyContent: "center"} }>
+                                                        </Typography>
+                                                        <Typography sx={typographyStyle} style={ {display: "flex", justifyContent: "center"} }>
                                                             <>
                                                                 { new Date(ili.dt * 1000).toLocaleTimeString('ru-RU') }
                                                                 { new Date(ili.dt).getHours }
                                                             </>
-                                                        </div>
-                                                    </div>)
+                                                        </Typography>
+                                                    </Typography>)
                                             ) }
-                                    </div>
+                                    </Box>
                                 </Box>
                             }
                         </Box>

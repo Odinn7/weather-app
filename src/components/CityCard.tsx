@@ -3,9 +3,10 @@ import { Button, ButtonGroup, Card, Typography } from "@mui/material";
 import { MoreInfo } from "./MoreInfo";
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useAppDispatch, useAppSelector } from "../redux/hooks/hooks";
-import { fetchingCities, fetchingForSixDays } from "../redux/asyncFunctions";
+import { fetchingCities, fetchingForSixDays, fetchingForUpdateCity } from "../redux/asyncFunctions";
 import { citiesSlice } from "../redux/CitiesSlice";
-import { ICities, ICitiesMain, ICitiesWeather } from "../redux/ICities";
+import { ICities, ICitiesWeather } from "../redux/ICities";
+import { cardStyle, typographyStyle } from "../Styles";
 
 
 interface CityCardProps {
@@ -15,7 +16,6 @@ interface CityCardProps {
 export const CityCard = ({city}: CityCardProps) => {
     const [open, setOpen] = useState<boolean>(false);
     const dispatch = useAppDispatch();
-
     const {citiesWeather: weather} = useAppSelector(state => state.citiesSlice)
     const location = city.name;
 
@@ -24,10 +24,12 @@ export const CityCard = ({city}: CityCardProps) => {
         dispatch(citiesSlice.actions.getFiveDaysWeather)
         setOpen(true);
     }
+
     const handleClose = () => {
         dispatch(citiesSlice.actions.deleteMoreInfo(weather))
         setOpen(false);
     }
+
     const onCloseHandleClick = (id: number) => {
         dispatch(citiesSlice.actions.deleteCity(id))
         const citiesStorage = localStorage.getItem("cities")
@@ -36,20 +38,16 @@ export const CityCard = ({city}: CityCardProps) => {
             const filteredStorage = parsedStorage.filter(
                 (storageItem: any) => storageItem.id !== id
             )
-			localStorage.setItem("cities", JSON.stringify(filteredStorage))
+            localStorage.setItem("cities", JSON.stringify(filteredStorage))
         }
     }
+
     const onClickUpdateHandler = () => {
-        dispatch(fetchingCities(location))
+        dispatch(fetchingForUpdateCity(location))
     }
 
     return (
-        <Card sx={ {
-            display: "flex", flexDirection: "Column",
-            justifyContent: "space-between",
-            border: "2px solid #0C4F96", width: "250px", height: "250px", padding: "15px",
-            margin: "15px", borderRadius: "15px"
-        } } elevation={ 2 }>
+        <Card sx={cardStyle} elevation={ 2 }>
             <div style={ {
                 display: "flex",
                 justifyContent: "space-between",
@@ -57,9 +55,9 @@ export const CityCard = ({city}: CityCardProps) => {
                 <Typography sx={ {
                     fontFamily: "Montserrat", display: "flex", flexDirection: "column"
                 } }>
-                    <div> City: { city.name }</div>
-                    <div>Weather: { city.weather.map((item: ICitiesWeather) => item.main) }</div>
-                    <div>Temperature: { Math.floor(city.main.temp) }°C</div>
+                    <Typography sx={typographyStyle}> City: { city.name }</Typography>
+                    <Typography sx={typographyStyle}>Weather: { city.weather.map((item: ICitiesWeather) => item.main) }</Typography>
+                    <Typography sx={typographyStyle}>Temperature: { Math.floor(city.main.temp) }°C</Typography>
                 </Typography>
                 <CancelIcon
                     color="error"

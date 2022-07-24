@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useAppDispatch, useAppSelector } from "../redux/hooks/hooks";
 import { CityCard } from "./CityCard";
 
