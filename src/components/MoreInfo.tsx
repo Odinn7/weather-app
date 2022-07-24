@@ -1,8 +1,6 @@
 import React from 'react';
-import { Box, Button, Modal, TextField, Typography } from "@mui/material";
+import { Box, Modal, Typography } from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
-import { useAppDispatch, useAppSelector } from "../redux/hooks/hooks";
-import { citiesSlice } from "../redux/CitiesSlice";
 import { ICities, ICitiesWeather, IWeather, IWeatherList } from "../redux/ICities";
 import { boxStyle, typographyStyle } from "../Styles";
 
@@ -15,7 +13,6 @@ interface MoreInfoStateProps {
 }
 
 export const MoreInfo = ({open, handleClose, city, weather}: MoreInfoStateProps) => {
-    const dispatch = useAppDispatch()
 
     return (
         <Modal

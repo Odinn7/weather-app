@@ -1,22 +1,18 @@
-import React, { ChangeEvent, KeyboardEventHandler, SyntheticEvent, useCallback, useEffect, useState } from "react";
-import { styled, alpha } from '@mui/material/styles';
+import React, { ChangeEvent, useCallback, useState } from "react";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
 import { Button } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../redux/hooks/hooks";
-import { fetchingCities, fetchingForSixDays } from "../redux/asyncFunctions";
+import { useAppDispatch } from "../redux/hooks/hooks";
+import { fetchingCities} from "../redux/asyncFunctions";
 import { Search, StyledInputBase, toolbarStyles } from "../Styles";
 import { SearchRounded } from "@mui/icons-material";
-import { ICities } from "../redux/ICities";
 
 
 export const Header = () => {
     const [location, setLocation] = useState<string>('')
     const dispatch = useAppDispatch()
-    const {citiesArray: city} = useAppSelector(state => state.citiesSlice)
 
     const onClickAddCityHandler = () => {
         if (location) {

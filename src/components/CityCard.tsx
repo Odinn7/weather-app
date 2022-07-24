@@ -3,7 +3,7 @@ import { Button, ButtonGroup, Card, Typography } from "@mui/material";
 import { MoreInfo } from "./MoreInfo";
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useAppDispatch, useAppSelector } from "../redux/hooks/hooks";
-import { fetchingCities, fetchingForSixDays, fetchingForUpdateCity } from "../redux/asyncFunctions";
+import { fetchingForSixDays, fetchingForUpdateCity } from "../redux/asyncFunctions";
 import { citiesSlice } from "../redux/CitiesSlice";
 import { ICities, ICitiesWeather } from "../redux/ICities";
 import { cardStyle, typographyStyle } from "../Styles";
@@ -26,7 +26,7 @@ export const CityCard = ({city}: CityCardProps) => {
     }
 
     const handleClose = () => {
-        dispatch(citiesSlice.actions.deleteMoreInfo(weather))
+        dispatch(citiesSlice.actions.deleteMoreInfo())
         setOpen(false);
     }
 

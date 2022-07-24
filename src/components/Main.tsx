@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAppDispatch, useAppSelector } from "../redux/hooks/hooks";
+import { useAppSelector } from "../redux/hooks/hooks";
 import { CityCard } from "./CityCard";
 
 

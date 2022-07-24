@@ -26,9 +26,10 @@ export const fetchingCities = (location: string) => async (dispatch: AppDispatch
 
 export const fetchingForUpdateCity = (location: string) => async (dispatch: AppDispatch) => {
     try {
-        const {data} = await axios.get(
+        const {data: updatedData} = await axios.get(
             `${ baseUrl }/weather?q=${ location }&units=metric&appid=${ ApiKey }`
         )
+        dispatch(citiesSlice.actions.newCityFetching(updatedData))
     } catch {
         console.warn("Fetching error")
     }

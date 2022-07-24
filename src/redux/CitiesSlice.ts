@@ -25,7 +25,7 @@ export const citiesSlice = createSlice({
         getFiveDaysWeather(state, action) {
             state.citiesWeather.push(action.payload)
         },
-        deleteMoreInfo(state, action) {
+        deleteMoreInfo(state) {
             state.citiesWeather = []
         },
         deleteCity(state, action: PayloadAction<number>) {
