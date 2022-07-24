@@ -65,8 +65,8 @@ export const MoreInfo = ({open, handleClose, city, weather}: MoreInfoStateProps)
                                     <Box style={ {display: "flex"} }>
                                         {
                                             weather.map(
-                                                (weatherItem: IWeather) => weatherItem.list.slice(0, 7).map(
-                                                    (ili: IWeatherList) => <Typography style={
+                                                (weatherItemContainer: IWeather) => weatherItemContainer.list.slice(0, 7).map(
+                                                    (weatherItem: IWeatherList) => <Typography style={
                                                         {
                                                             marginRight: "5px",
                                                             border: "1px solid black",
@@ -81,12 +81,12 @@ export const MoreInfo = ({open, handleClose, city, weather}: MoreInfoStateProps)
                                                         }
                                                     }>
                                                         <Typography sx={typographyStyle} style={ {display: "flex", justifyContent: "center"} }>
-                                                            { (ili.main.temp) }°C
+                                                            { (weatherItem.main.temp) }°C
                                                         </Typography>
                                                         <Typography sx={typographyStyle} style={ {display: "flex", justifyContent: "center"} }>
                                                             <>
-                                                                { new Date(ili.dt * 1000).toLocaleTimeString('ru-RU') }
-                                                                { new Date(ili.dt).getHours }
+                                                                { new Date(weatherItem.dt * 1000).toLocaleTimeString('ru-RU') }
+                                                                { new Date(weatherItem.dt).getHours }
                                                             </>
                                                         </Typography>
                                                     </Typography>)
