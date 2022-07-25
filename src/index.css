@@ -5,6 +5,8 @@ body {
   padding: 0;
   list-style: none;
   outline: none;
+  background-size: cover;
+  background: url("https://img.wallpapersafari.com/desktop/1920/1080/4/93/Fedfp6.jpg") no-repeat;
   font-family: -apple-system, BlinkMacSystemFont, 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

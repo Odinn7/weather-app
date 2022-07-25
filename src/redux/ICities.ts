@@ -12,13 +12,13 @@ export interface ICitiesMain {
     humidity: number,
 }
 
-interface ICitiesSys {
+export interface ICitiesSys {
     country: string,
     sunrise: number,
     sunset: number
 }
 
-interface ICitiesWind {
+export interface ICitiesWind {
     speed: number,
     deg: number
 }
@@ -32,19 +32,21 @@ export interface ICities {
     wind: ICitiesWind,
 }
 
+export interface IWeatherListMain {
+    temp: number,
+    feels_like: number,
+    temp_min: number,
+    temp_max: number,
+    pressure: number,
+    sea_level: number,
+    grnd_level: number,
+    humidity: number,
+    temp_kf: number
+}
+
 export interface IWeatherList {
-    "dt": number,
-    "main": {
-        "temp": number,
-        "feels_like": number,
-        "temp_min": number,
-        "temp_max": number,
-        "pressure": number,
-        "sea_level": number,
-        "grnd_level": number,
-        "humidity": number,
-        "temp_kf": number
-    }
+    dt: number,
+    main: IWeatherListMain
 }
 
 export interface IWeather {

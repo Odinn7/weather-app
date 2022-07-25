@@ -22,7 +22,7 @@ export const citiesSlice = createSlice({
         storageSync(state, action) {
             state.citiesArray = action.payload
         },
-        getFiveDaysWeather(state, action) {
+        getSevenDaysWeather(state, action) {
             state.citiesWeather.push(action.payload)
         },
         deleteMoreInfo(state) {
@@ -36,4 +36,5 @@ export const citiesSlice = createSlice({
     },
 })
 
+export const {newCityFetching, storageSync, getSevenDaysWeather, deleteCity, deleteMoreInfo} = citiesSlice.actions
 export default citiesSlice.reducer
